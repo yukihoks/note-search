@@ -14,19 +14,7 @@ interface SearchIndexItem {
 }
 
 async function main() {
-    // 1. Check for API Keys
-    const appKey = process.env.X_API_KEY;
-    const appSecret = process.env.X_API_SECRET;
-    const accessToken = process.env.X_ACCESS_TOKEN;
-    const accessSecret = process.env.X_ACCESS_TOKEN_SECRET;
-    const geminiKey = process.env.GOOGLE_API_KEY;
-
-    if (!appKey || !appSecret || !accessToken || !accessSecret) {
-        console.warn('⚠️  X API Keys not found in environment. Skipping X posting (this is expected during local updates without .env).');
-        process.exit(0);
-    }
-
-    // 2. Read new articles
+    // 1. Read new articles
     const newArticlesPath = path.join(process.cwd(), 'new-articles.json');
     let newArticles: SearchIndexItem[] = [];
 
@@ -41,6 +29,20 @@ async function main() {
     if (newArticles.length === 0) {
         console.log('No new articles to post.');
         process.exit(0);
+    }
+
+    // 2. Check for API Keys
+    const appKey = process.env.X_API_KEY;
+    const appSecret = process.env.X_API_SECRET;
+    const accessToken = process.env.X_ACCESS_TOKEN;
+    const accessSecret = process.env.X_ACCESS_TOKEN_SECRET;
+    const geminiKey = process.env.GOOGLE_API_KEY;
+
+    if (!appKey || !appSecret || !accessToken || !accessSecret) {
+        console.error('❌ New articles detected, but X API Keys are missing in environment.');
+        console.error('   Aborting to prevent marking articles as "processed" without posting.');
+        console.error('   Please let the GitHub Action handle this, or configure .env locally.');
+        process.exit(1);
     }
 
     // 3. Initialize Clients
