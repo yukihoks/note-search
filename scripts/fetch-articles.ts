@@ -112,52 +112,59 @@ async function main() {
         // File might not exist yet
     }
 
-    const existingIds = new Set(existingIndex.map(item => item.id));
+    const existingMap = new Map(existingIndex.map(item => [item.id, item]));
     const newArticles: SearchIndexItem[] = [];
 
     for (const [index, article] of articles.entries()) {
         console.log(`[${index + 1}/${articles.length}] Processing: ${article.name}`);
 
-        // Check if we need to scrape (if not in existing index or force update)
-        // For now, simple ID check. In future, could check updated_at.
-
         let content = article.body;
-        let fullText = '';
+        let finalItem: SearchIndexItem;
 
-        // Optimization: If article exists and we want to skip scraping, we could.
-        // But for now, let's scrape everything to ensure freshness or valid cache.
-        // Actually, to be polite, let's only scrape if it's NEW.
+        // Optimization: Check if article already exists in our index
+        if (existingMap.has(article.id)) {
+            // Use cached content to avoid re-scraping and unnecessary requests
+            const existingItem = existingMap.get(article.id)!;
+            console.log(`  Start skipping scrape for existing article: ${article.name}`);
 
-        if (existingIds.has(article.id)) {
-            // Use existing content if available? 
-            // For simplicity and "daily update" context, let's re-scrape to catch edits.
-            // But for "X Posting", we only care if it's strictly NEW.
+            finalItem = {
+                ...existingItem,
+                // Update potentially mutable fields from API response if needed, 
+                // but keep the expensive scraped content.
+                title: article.name,
+                slug: article.key,
+                tags: article.hashtags.map(h => h.hashtag.name),
+                thumbnail: article.eyecatch,
+                publishedAt: article.publishAt,
+                url: `https://note.com/${USER_ID}/n/${article.key}`,
+            };
+
+        } else {
+            // New article found! Scrape it.
+            console.log(`✨ NEW ARTICLE FOUND (Scraping): ${article.name}`);
+
+            const fullText = await scrapeFullText(article.key);
+            content = fullText.length > 50 ? fullText : article.body;
+
+            finalItem = {
+                id: article.id,
+                title: article.name,
+                slug: article.key,
+                content: content,
+                tags: article.hashtags.map(h => h.hashtag.name),
+                thumbnail: article.eyecatch,
+                publishedAt: article.publishAt,
+                url: `https://note.com/${USER_ID}/n/${article.key}`,
+            };
+
+            // Add to newArticles list for X posting
+            newArticles.push(finalItem);
+
+            // Random delay only when we actually scrape
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
         }
 
-        fullText = await scrapeFullText(article.key);
-        content = fullText.length > 50 ? fullText : article.body;
-
-        const item: SearchIndexItem = {
-            id: article.id,
-            title: article.name,
-            slug: article.key,
-            content: content,
-            tags: article.hashtags.map(h => h.hashtag.name),
-            thumbnail: article.eyecatch,
-            publishedAt: article.publishAt,
-            url: `https://note.com/${USER_ID}/n/${article.key}`,
-        };
-
-        searchIndex.push(item);
-
-        // Identify NEW articles for X posting
-        if (!existingIds.has(article.id)) {
-            console.log(`✨ FOUND NEW ARTICLE: ${item.title}`);
-            newArticles.push(item);
-        }
-
-        // Random delay
-        await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+        searchIndex.push(finalItem);
     }
 
     await fs.writeFile(OUTPUT_FILE, JSON.stringify(searchIndex, null, 2));

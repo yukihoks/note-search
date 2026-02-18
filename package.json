@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "update": "tsx scripts/fetch-articles.ts && git add public/search-index.json && git commit -m \"chore: update content\" && git push",
+    "update": "tsx scripts/fetch-articles.ts && tsx scripts/post-to-x.ts && git add public/search-index.json && git commit -m \"chore: update content\" && git push",
     "thread": "tsx scripts/generate-thread.ts"
   },
   "dependencies": {

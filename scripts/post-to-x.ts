@@ -22,7 +22,7 @@ async function main() {
     const geminiKey = process.env.GOOGLE_API_KEY;
 
     if (!appKey || !appSecret || !accessToken || !accessSecret) {
-        console.error('Missing X API Keys. Skipping X posting.');
+        console.warn('⚠️  X API Keys not found in environment. Skipping X posting (this is expected during local updates without .env).');
         process.exit(0);
     }
 
@@ -61,6 +61,7 @@ async function main() {
     // 4. Post Loop
     console.log(`Starting to post ${newArticles.length} articles to X...`);
 
+    let hasError = false;
     for (const article of newArticles) {
         try {
             let tweets: string[] = [];
@@ -148,8 +149,14 @@ async function main() {
             await new Promise(resolve => setTimeout(resolve, 5000));
 
         } catch (error) {
-            console.error(`Failed to tweet article ${article.id}:`, error);
+            console.error(`❌ Failed to tweet article ${article.id}:`, error);
+            hasError = true;
         }
+    }
+
+    if (hasError) {
+        console.error('⚠️ One or more articles failed to post. Exiting with error to prevent index update.');
+        process.exit(1);
     }
 }
 

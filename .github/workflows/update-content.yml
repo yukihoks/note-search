@@ -3,7 +3,7 @@ name: Update Content
 
 on:
   schedule:
-    - cron: '0 3,15 * * *' # Run daily at 03:00 UTC (12:00 JST) and 15:00 UTC (00:00 JST)
+    - cron: '0 3,12,15 * * *' # Run daily at 03:00 UTC (12:00 JST), 12:00 UTC (21:00 JST), and 15:00 UTC (00:00 JST)
   workflow_dispatch: # Allow manual trigger
 
 jobs:
