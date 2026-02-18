@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "next lint",
+    "update": "tsx scripts/fetch-articles.ts && git add public/search-index.json && git commit -m \"chore: update content\" && git push",
+    "thread": "tsx scripts/generate-thread.ts"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@swc/helpers": "^0.5.18",
     "@vercel/og": "^0.8.6",
     "axios": "^1.13.5",
