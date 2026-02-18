@@ -8,29 +8,36 @@ import { Search, Loader2 } from 'lucide-react';
 
 export default function SearchEngine() { // Default export for simplicity in page.tsx
     const [query, setQuery] = useState('');
-    const { search, loading, index } = useSearch(); // Actually useSearch returns { search, index, loading }? I need to verify useSearch definition.
-    // In Step 130 I defined: export function useSearch() { ... return { search: (query) => ..., index, loading }; }
-    // Wait, I didn't export 'search' function directly as search(query). I exported a function that RETURNS the results?
-    // Let's re-read Step 130.
-    // const search = (query: string) => { ... return fuse.search(query)... }
-    // return { search, index, loading };
-    // So `search` is a function that takes a query and returns items. Correct.
-
+    const { search, loading, index } = useSearch();
     const [results, setResults] = useState<any[]>([]);
 
     useEffect(() => {
+        // Initialize query from URL on mount
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get('q');
+        if (q) setQuery(q);
+    }, []);
+
+    useEffect(() => {
+        // Update URL when query changes
+        const params = new URLSearchParams(window.location.search);
+        if (query) {
+            params.set('q', query);
+        } else {
+            params.delete('q');
+        }
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.replaceState({}, '', newUrl);
+
         if (!loading) {
             if (query.trim() === '') {
                 setResults(index);
             } else {
                 const hits = search(query);
-                // fuse returns { item, refIndex } usually, but my implementation mapped it to result.item?
-                // Let's check Step 130: return fuse.search(query).map((result) => result.item);
-                // Yes, so it returns SearchIndexItem[].
                 setResults(hits);
             }
         }
-    }, [query, loading, index]);
+    }, [query, loading, index, search]); // Added search to dependency array if needed, or remove if stable
 
     return (
         <div className="space-y-8">
