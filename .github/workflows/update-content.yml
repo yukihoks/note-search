@@ -28,14 +28,14 @@ jobs:
       - name: Fetch Articles
         run: npx tsx scripts/fetch-articles.ts
 
-      - name: Post to X
-        run: npx tsx scripts/post-to-x.ts
-        env:
-          X_API_KEY: ${{ secrets.X_API_KEY }}
-          X_API_SECRET: ${{ secrets.X_API_SECRET }}
-          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
-          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      # - name: Post to X
+      #   run: npx tsx scripts/post-to-x.ts
+      #   env:
+      #     X_API_KEY: ${{ secrets.X_API_KEY }}
+      #     X_API_SECRET: ${{ secrets.X_API_SECRET }}
+      #     X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+      #     X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+      #     GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Commit and Push if changed
         run: |
