@@ -71,7 +71,7 @@ async function main() {
             if (genAI) {
                 console.log(`🤖 Generating thread for: ${article.title} with Gemini...`);
                 try {
-                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
                     const prompt = `
                     你是プロのテック系ブロガー「yukidouji」です。
