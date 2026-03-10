@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": 150426378,
+    "title": "【3月10日最新】アニメ制作が3週間→4日に激変。エンジニアが「Claude Code」を指揮して爆速で集金装置を作る方法",
+    "slug": "n5c3d54f0dc55",
+    "content": "【3月10日最新】アニメ制作が3週間→4日に激変。エンジニアが「Claude Code」を指揮して爆速で集金装置を作る方法\n          \n    2\n         \n          yukidouji.\n         2026年3月10日 14:07     2026年3月10日、火曜日。今朝、クリエイティブ界隈に衝撃が走っています。生成AIの導入により、アニメ制作の期間が「3週間から4日」へと劇的に短縮された実例が話題を独占しているからです。この「生産性5倍」という数字は、クリエイターだけの特権ではありません。私たちエンジニアの世界でも、今まさに同じことが起きています。「Claude Code」がもたらした開発プロセスの終焉昨日からエンジニアの間で爆発的なブームとなっているのが、Anthropicの最新CLIツール「Claude Code」です。これは単なるコード補完ではありません。ターミナル上でAIがディレクトリ構造を自律的に理解し、テストコードを書き、バグを修正し、デプロイまでをワンストップで完結させる「エージェント型開発」の決定版です。OpenAIがテスト評価ツール「Promptfoo」を買収したニュースからも分かる通り、これからの開発は「書く」フェーズから「AIが出した成果物を評価・検証する」フェーズへ完全に移行しました。GitHub CopilotもJiraとの連携を深め、チケットを投げるだけでプルリクまで自動生成される時代です。週末で5万稼ぐための「エージェント指揮」戦略この爆速時代に、個人開発や副業で利益を出すためのロードマップを整理します。実装は「Claude Code」に丸投げする： 自分でエディタを叩く時間をゼロに近づけてください。ターミナルから「/loop」コマンドでAIに自律修正をさせ、自分は仕様の整合性チェックに集中します。「Node75」等の物理デバイスで操作を加速させる： 最新のキーボード（NuPhy Node75 JISなど）を使い、分割スペースバーにAI起動を割り当ててください。思考を直接AIに伝える「物理的なショートカット」の構築が、時給を跳ね上げる鍵になります。「4日で納品」を標準にする： アニメ制作が5分の1になったように、システム開発もこれまでのスケジュール感で進めてはいけません。AIを駆使して「爆速納品」を行い、浮いた時間で次の「集金装置」を構築する。この回転率の高さこそが、2026年のエンジニアの強みです。まとめ：2026年、エンジニアの価値は「最短経路の設計」に宿る「AIに仕事が奪われる」と嘆くのではなく、AIという超高性能な部下を「指揮」する側に回りましょう。大切なのは実装力より、AIの嘘を見抜く「審美眼」と、最短で成果を出すための「デバイス・ハック」です。具体的なClaude Codeの設定術と、AIのミスを1分で見抜くための「評価パイプライン」の構築方法は、以下の本編で詳説します。サムネイル画像生成プロンプトA futuristic engineer sitting in a dimly lit, high-tech studio. \nMultiple transparent holographic screens display complex code and 3D anime character models. In the foreground, a sleek mechanical keyboard (NuPhy Node75 style) with glowing RGB light. \nThe atmosphere is focused and powerful, showing a \"Director\" controlling AI agents. \nHyper-realistic, 8k resolution, cinematic lighting, cyber-noir style.    \n    ダウンロード\n    \n  copy",
+    "tags": [
+      "#副業",
+      "#エンジニア",
+      "#ClaudeCode",
+      "#最新技術",
+      "#AI工作術"
+    ],
+    "thumbnail": "https://assets.st-note.com/production/uploads/images/257998775/rectangle_large_type_2_5bd66a7042ff340e7556aa9c2b8fdc82.png?fit=bounds&quality=85&width=1280",
+    "publishedAt": "2026-03-10T14:07:55+09:00",
+    "url": "https://note.com/yukidouji/n/n5c3d54f0dc55"
+  }
+]
